@@ -1,2 +1,84 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+
+@theme {
+  --color-primary: #2e5834;
+  --color-primary-light: #407948;
+  --color-grey-light: #acacac;
+  --color-grey-shadow: #444444;
+  --color-secondary: #c57d5d;
+  --color-black-light: #1d1d1d;
+
+  /* font families */
+  --font-poppins: 'Poppins', sans-serif;
+
+  /* sizes */
+  --size-xs: 18px;
+  --size-sm: 20px;
+  --size-md: 22px;
+  --size-lg: 24px;
+  --size-xl: 26px;
+
+  /* line-heights */
+  --leading-xs: 27px;
+  --leading-sm: 30px;
+  --leading-md: 33px;
+  --leading-md-relaxed: 38px;
+  --leading-lg: 36px;
+  --leading-xl: 39px;
+
+  /* weights */
+  --weight-light: 300;
+  --weight-normal: 400;
+}
+
+@layer utilities {
+  .typography-small-title {
+    font-family: var(--font-poppins);
+    font-size: var(--size-lg);
+    line-height: var(--leading-lg);
+    font-weight: var(--weight-normal);
+  }
+
+  .typography-medium-title {
+    font-family: var(--font-poppins);
+    font-size: var(--size-xl);
+    line-height: var(--leading-xl);
+    font-weight: var(--weight-light);
+  }
+
+  .typography-body-light {
+    font-family: var(--font-poppins);
+    font-size: var(--size-md);
+    line-height: var(--leading-md);
+    font-weight: var(--weight-light);
+  }
+
+  .typography-body {
+    font-family: var(--font-poppins);
+    font-size: var(--size-md);
+    line-height: var(--leading-md-relaxed);
+    font-weight: var(--weight-normal);
+  }
+
+  .typography-label {
+    font-family: var(--font-poppins);
+    font-size: var(--size-sm);
+    line-height: var(--leading-sm);
+    font-weight: var(--weight-normal);
+  }
+
+  .typography-small-light {
+    font-family: var(--font-poppins);
+    font-size: var(--size-xs);
+    line-height: var(--leading-xs);
+    font-weight: var(--weight-light);
+  }
+
+  .typography-body-22 {
+    font-family: var(--font-poppins);
+    font-size: var(--size-md);
+    line-height: var(--leading-md);
+    font-weight: var(--weight-normal);
+  }
+}
