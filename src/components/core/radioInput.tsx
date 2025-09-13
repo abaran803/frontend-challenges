@@ -56,7 +56,7 @@ function RadioInput(
               onKeyDown={handleKeyDown}
               value={value}
               onChange={handleValueChange}
-              className="border-0 outline-0 focus-visible:ring-0 text-8xl typography-body w-auto"
+              className="typography-body"
             />
           )}
         </div>
