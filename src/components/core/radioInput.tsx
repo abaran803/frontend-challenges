@@ -5,21 +5,23 @@ import React, { useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/core/radio-group';
 import { Input } from '@/components/core/input';
 import PencilIcon from '@/assets/svgs/pencil.svg?react';
+import type { IOption } from '@/types/core';
+import Delete from '@/components/core/icons/delete';
+import Close from '@/components/core/icons/close';
 
-interface IRadioOption {
-  id: string;
-  value: string;
-  onOptionChange: (id: string, value: string) => void;
-}
+type OnOptionChange = (id: string, value: string) => void;
 
-interface IRadioInputs {
-  options: Omit<IRadioOption, 'onOptionChange'>[];
+interface RadioInputsProps {
+  options: IOption[];
   name: string;
-  onOptionChange: (id: string, value: string) => void;
+  onOptionChange: OnOptionChange;
+  deletable?: boolean;
 }
 
-function RadioInput(props: IRadioOption) {
-  const { id, value, onOptionChange } = props;
+function RadioInput(
+  props: IOption & { onOptionChange: OnOptionChange; deletable: boolean }
+) {
+  const { id, value, onOptionChange, deletable } = props;
   const [editing, setEditing] = useState(false);
   const startEditing = () => {
     setEditing(true);
@@ -37,41 +39,54 @@ function RadioInput(props: IRadioOption) {
     }
   };
   return (
-    <div key={id} className="flex gap-3 items-center hover:[&>.icon]:flex">
-      <div className="flex items-center gap-5">
-        <RadioGroupItem value="option-one" id="option-one" />
-        {!editing ? (
-          <label className="typography-body" htmlFor="option-one">
-            {value}
-          </label>
-        ) : (
-          <Input
-            autoFocus
-            onKeyDown={handleKeyDown}
-            value={value}
-            onChange={handleValueChange}
-            className="border-0 outline-0 focus-visible:ring-0 text-8xl typography-body w-auto"
-          />
+    <div className="flex items-center justify-between">
+      <div
+        key={id}
+        className="flex gap-3 items-center hover:[&>.icon]:flex py-2.5"
+      >
+        <div className="flex items-center gap-5">
+          <RadioGroupItem value="option-one" id="option-one" />
+          {!editing ? (
+            <label className="typography-body" htmlFor="option-one">
+              {value}
+            </label>
+          ) : (
+            <Input
+              autoFocus
+              onKeyDown={handleKeyDown}
+              value={value}
+              onChange={handleValueChange}
+              className="border-0 outline-0 focus-visible:ring-0 text-8xl typography-body w-auto"
+            />
+          )}
+        </div>
+        {!editing && (
+          <div
+            onClick={startEditing}
+            className="w-6 h-6 icon justify-center items-center hidden cursor-pointer"
+          >
+            <PencilIcon />
+          </div>
         )}
       </div>
-      {!editing && (
-        <div
-          onClick={startEditing}
-          className="w-6 h-6 icon justify-center items-center hidden cursor-pointer"
-        >
-          <PencilIcon />
-        </div>
+      {editing && (
+        <Close className="cursor-pointer" onClick={() => setEditing(false)} />
       )}
+      {deletable && !editing && <Delete onClick={() => {}} />}
     </div>
   );
 }
 
-function RadioInputs(props: React.ComponentProps<'div'> & IRadioInputs) {
-  const { className, name, options, onOptionChange } = props;
+function RadioInputs(props: React.ComponentProps<'div'> & RadioInputsProps) {
+  const { className, name, options, onOptionChange, deletable = false } = props;
   return (
     <RadioGroup name={name} className={className}>
-      {options.map((option: Omit<IRadioOption, 'onOptionChange'>) => (
-        <RadioInput onOptionChange={onOptionChange} {...option} />
+      {options.map((option: IOption) => (
+        <RadioInput
+          deletable={deletable}
+          onOptionChange={onOptionChange}
+          {...option}
+        />
       ))}
     </RadioGroup>
   );

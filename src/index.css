@@ -33,6 +33,7 @@
 }
 
 @layer utilities {
+  /* typographies */
   .typography-small-title {
     font-family: var(--font-poppins);
     font-size: var(--size-lg);
@@ -80,5 +81,10 @@
     font-size: var(--size-md);
     line-height: var(--leading-md);
     font-weight: var(--weight-normal);
+  }
+
+  /* box shadows */
+  .drop-shadow {
+    box-shadow: 0px 2px 10px rgba(46, 88, 52, 0.3);
   }
 }
